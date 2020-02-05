@@ -1,0 +1,25 @@
+---
+title: "class2/5/20"
+author: "Feven Yohannes"
+date: "February 5, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(babynames)
+```
+
+```{r}
+babynames %>%
+  mutate(vowel=(ifelse(str_detect(name,"[aeiou]"),TRUE,FALSE))) %>%
+  group_by(year) %>%
+  count(vowel) %>%
+  filter(vowel == "FALSE") %>%
+  ggplot(aes(x=year,y=n)) + geom_line() +
+  labs(x="Year",
+       y="Number of People without Vowels in their name")
+
+```
+
